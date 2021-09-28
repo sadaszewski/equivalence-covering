@@ -6,10 +6,11 @@
 
 
 import networkx as nx
+import numpy as np
 from typing import Set, List, Any
 
 
-def find_all_subsets(s: Set[Any], include_empty: bool= False):
+def find_all_subsets(s: Set[Any], include_empty: bool= False) -> List[frozenset]:
     s = np.array(list(s))
     res = []
     for i in range(2**len(s)):
@@ -20,7 +21,7 @@ def find_all_subsets(s: Set[Any], include_empty: bool= False):
     return res
 
 
-def find_all_cliques(g: nx.Graph):
+def find_all_cliques(g: nx.Graph) -> List[frozenset]:
     res = set()
     for c in nx.find_cliques(g):
         for c in find_all_subsets(c):
@@ -29,7 +30,7 @@ def find_all_cliques(g: nx.Graph):
     return res
 
 
-def clique_edges(c: List[int]):
+def clique_edges(c: List[int]) -> List[frozenset]:
     c = list(c)
     res = []
     for i in range(len(c)):
@@ -75,7 +76,7 @@ def find_equivalence_covering(g: nx.Graph) -> List[List[frozenset]]:
     return res
 
 
-def verify_equivalence_covering(c: List[List[frozenset]], g: nx.Graph):
+def verify_equivalence_covering(c: List[List[frozenset]], g: nx.Graph) -> bool:
     edges_in_cover = set()
     for c_1 in c:
         for c_2 in c_1:
